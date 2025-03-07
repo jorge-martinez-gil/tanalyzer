@@ -1,61 +1,71 @@
-# 🌍 tanalyzer
-Repository for the software concerning Test Area Analysis in the frame of the SmartCommUnity project
+# 🌍 Test Area Analyzer
 
-**(Work in progress)**
+Repository for the software concerning Test Area Analysis in the frame of the SmartCommUnity project.
+
+
+## 🚀 Overview
+
+`tanalyzer` is a software tool designed to analyze test areas using OpenStreetMap (OSM) data. It helps assess the availability of amenities and smart entities in a given location, providing insights into digitalization, smartness, and rural development. The tool integrates data visualization through interactive maps and leverages AI-powered analysis to generate recommendations.
+
+## 🛠 Features
+
+- Fetch and visualize amenities around a given latitude/longitude.
+- Count and categorize different types of amenities.
+- Retrieve smart entities based on custom OSM tags.
+- Add markers to an interactive map using Folium.
+- Construct AI-driven insights based on selected entities.
+- Provide an interactive interface using Streamlit.
+
+## 📦 Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repository/tanalyzer.git
+   cd tanalyzer
+   ```
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the application:
+   ```bash
+   streamlit run app.py
+   ```
+
+## 📝 Usage
+
+1. Open the web application and select a test area.
+2. Choose a category of interest (e.g., Smart Economy, Smart Mobility).
+3. Retrieve and visualize amenities or entities on the map.
+4. Use the AI Assistant to analyze and generate insights.
+5. Download the analysis results as a text file.
+
+## 🖥️ Technology Stack
+
+- **Python** (Backend processing)
+- **Streamlit** (UI framework)
+- **OSMnx** (Fetching geospatial data from OpenStreetMap)
+- **Folium** (Mapping and visualization)
+- **Pandas** (Data handling)
+- **Requests** (API interactions for AI analysis)
 
 ## 📚 Reference
 
-If the meanwhile, you can refer to our most recent publications in this topic:
+For further reading, refer to our recent publications:
 
 ```
-@article{martinez2023smartplatform,
-  author       = {Jorge Martinez-Gil and
-                  Mario Pichler and
-                  Gianluca Lentini and
-                  Valerio Mazzeschi and
-                  Guillaume Doukhan and
-                  Claire Belet},
-  title        = {A Digital Platform to Facilitate the Resilience of Rural Territories},
-  journal      = {J. Inf. Knowl. Manag.},
-  volume       = {21},
-  number       = {3},
-  pages        = {2250043:1--2250043:19},
-  year         = {2022},
-  url          = {https://doi.org/10.1142/S0219649222500435},
-  doi          = {10.1142/S0219649222500435}
-}
-```
-```
-@inproceedings{martinez2020framework,
-  author       = {Jorge Martinez-Gil and
-                  Mario Pichler and
-                  Muhamed Turkanovic and
-                  Tina Beranic and
-                  Mitja Gradisnik and
-                  Gianluca Lentini and
-                  Alessandro Lu{\'{e}} and
-                  Alberto Colorni Vitale and
-                  Guillaume Doukhan and
-                  Claire Belet},
-  editor       = {Andrea Ko and
-                  Enrico Francesconi and
-                  Gabriele Kotsis and
-                  A Min Tjoa and
-                  Ismail Khalil},
-  title        = {Framework for Data Analysis in the Context of the Smart Villages},
-  booktitle    = {Electronic Government and the Information Systems Perspective - 9th
-                  International Conference, {EGOVIS} 2020, Bratislava, Slovakia, September
-                  14-17, 2020, Proceedings},
-  series       = {Lecture Notes in Computer Science},
-  volume       = {12394},
-  pages        = {31--45},
-  publisher    = {Springer},
-  year         = {2020},
-  url          = {https://doi.org/10.1007/978-3-030-58957-8\_3},
-  doi          = {10.1007/978-3-030-58957-8\_3}
+@article{martinez2025overview,
+  title={An overview of civic engagement tools for rural communities},
+  author={Martinez-Gil, Jorge and Pichler, Mario and Lechat, Noemi and Lentini, Gianluca and Cvar, Nina and Trilar, Jure and Bucchiarone, Antonio and Marconi, Annapaola},
+  journal={Open Research Europe},
+  volume={4},
+  number={195},
+  pages={195},
+  year={2025},
+  publisher={F1000 Research Limited}
 }
 ```
 
 ## 📄 License
 
-The material is provided under the MIT License. 
+This project is licensed under the MIT License.
