@@ -333,13 +333,12 @@ def get_smart_entities(latitude: float, longitude: float, ent: str, radius: int 
         entities['entity_type'] = ent
     return entities
 
-def add_markers_to_map(m: folium.Map, entities: pd.DataFrame, entity_type: str, cluster=None) -> None:
+def add_markers_to_map(m: folium.Map, entities: pd.DataFrame, entity_type: str) -> None:
     """
-    Adds markers for the given entities on the folium map.
-    If a MarkerCluster is provided, markers are added to it.
+    Adds friendly markers for the given entities on the folium map.
+    This version uses folium.Marker with a custom icon instead of circle markers.
     """
     marker_color = get_marker_color(entity_type)
-    target = cluster if cluster is not None else m
     for _, row in entities.iterrows():
         if row.geometry is None:
             continue
@@ -350,14 +349,12 @@ def add_markers_to_map(m: folium.Map, entities: pd.DataFrame, entity_type: str, 
         else:
             continue
         tooltip = f"{entity_type}: {row.get('name', 'N/A')}"
-        folium.CircleMarker(
+        icon = folium.Icon(color=marker_color, icon='info-sign')
+        folium.Marker(
             location=point_location,
-            radius=7,
             popup=tooltip,
-            color=marker_color,
-            fill=True,
-            fill_color=marker_color
-        ).add_to(target)
+            icon=icon
+        ).add_to(m)
 
 def construct_message_content(lat: float, lon: float) -> str:
     """
@@ -412,7 +409,7 @@ def main():
     # Header Banner and Title
     st.markdown('<div class="app-title">Smart CommUnity - TA Analyzer</div>', unsafe_allow_html=True)
 
-    # Sidebar: Only Test Area Selection and Clear Option are exposed.
+    # Sidebar: Test Area Selection and Clear Option
     example_choice = st.sidebar.selectbox("Choose a Test Area:", list(example_coordinates.keys()), key='example_choice')
     selected_coordinate = example_coordinates.get(example_choice, DEFAULT_COORDINATES)
     lat = st.sidebar.number_input("Latitude:", value=selected_coordinate[0], key="lat_input")
@@ -423,15 +420,12 @@ def main():
         st.session_state.message_content = ""
         st.experimental_rerun()
 
-    # Removed the Entities Summary block here
-
-    # Create folium map with dynamic zoom based on the hidden default radius.
+    # Create folium map with dynamic zoom based on the default radius.
     zoom_level = compute_zoom_level(RADIUS_DEFAULT)
     m = folium.Map(location=[lat, lon], zoom_start=zoom_level, width=MAP_WIDTH, height=MAP_HEIGHT)
 
-    # Marker clustering for a refined map experience.
-    marker_cluster = MarkerCluster().add_to(m)
-
+    # Note: We removed marker clustering for a cleaner marker display.
+    
     # Define tabs for different analysis sections.
     tab_names = ["Default", "SmartEconomy", "SmartGovernance", "SmartMobility", "SmartEnvironment", "SmartPeople", "SmartLiving"]
     tabs = st.tabs(tab_names)
@@ -449,7 +443,7 @@ def main():
                         st.warning(f"No {amenity_type} amenities found within the specified distance.")
                     else:
                         amenities['entity_type'] = amenity_type
-                        add_markers_to_map(m, amenities, amenity_type, cluster=marker_cluster)
+                        add_markers_to_map(m, amenities, amenity_type)
                         st.session_state.selected_entities.append(amenities)
                         st.session_state.message_content = construct_message_content(lat, lon)
                 except Exception as e:
@@ -499,7 +493,7 @@ def main():
                         if entities.empty:
                             st.warning(f"No entities found for {selected_entity} within the specified distance.")
                         else:
-                            add_markers_to_map(m, entities, selected_entity, cluster=marker_cluster)
+                            add_markers_to_map(m, entities, selected_entity)
                             st.session_state.selected_entities.append(entities)
                             st.session_state.message_content = construct_message_content(lat, lon)
                     except Exception as e:
